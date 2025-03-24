@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Grading Results for Course</title>
+  <style>
+    body { font-family: Arial, sans-serif; background-color: #eef2f3; margin: 0; padding: 20px; }
+    .container { max-width: 900px; margin: auto; background: #fff; padding: 20px; border-radius: 8px; }
+    h1 { color: #333; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    th, td { padding: 10px; border: 1px solid #ddd; text-align: left; }
+    th { background-color: #f2f2f2; }
+    a { color: #1a73e8; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Grading Results for Course</h1>
+    {% if graded_results %}
+      <table>
+        <tr>
+          <th>Assignment Title</th>
+          <th>Coursework ID</th>
+          <th>Student Submission ID</th>
+          <th>Grade (out of 100)</th>
+          <th>Result</th>
+        </tr>
+        {% for result in graded_results %}
+          <tr>
+            <td>{{ result.title }}</td>
+            <td>{{ result.coursework_id }}</td>
+            <td>{{ result.student_submission_id }}</td>
+            <td>{{ result.grade|round(2) }}</td>
+            <td>{{ result.result }}</td>
+          </tr>
+        {% endfor %}
+      </table>
+    {% else %}
+      <p>No grading actions were performed.</p>
+    {% endif %}
+    <br>
+    <a href="{{ url_for('list_courses') }}">Back to Courses</a>
+  </div>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Your Google Classroom Courses</title>
+  <style>
+    body { font-family: Arial, sans-serif; background-color: #eef2f3; margin: 0; padding: 20px; }
+    .container { max-width: 800px; margin: auto; background: #fff; padding: 20px; border-radius: 8px; }
+    h1 { color: #333; }
+    ul { list-style: none; padding: 0; }
+    li { margin: 10px 0; padding: 10px; border-bottom: 1px solid #ddd; }
+    a { color: #1a73e8; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Your Google Classroom Courses</h1>
+    <ul>
+      {% for course in courses %}
+        <li>
+          <strong>{{ course.name }}</strong> (Course ID: {{ course.id }})<br>
+          <a href="{{ url_for('fetch_and_grade') }}?course_id={{ course.id }}">View Assignments</a>
+          | <a href="{{ url_for('grade_all') }}?course_id={{ course.id }}">Grade All Students</a>
+        </li>
+      {% endfor %}
+    </ul>
+    <a href="{{ url_for('home') }}">Back to Dashboard</a>
+  </div>
+</body>
+</html>

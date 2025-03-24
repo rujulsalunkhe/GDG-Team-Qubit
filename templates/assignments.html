@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Assignments for Course {{ assignments[0].course_id if assignments else "" }}</title>
+  <style>
+    body { font-family: Arial, sans-serif; background-color: #eef2f3; margin: 0; padding: 20px; }
+    .container { max-width: 900px; margin: auto; background: #fff; padding: 20px; border-radius: 8px; }
+    h1 { color: #333; }
+    .assignment { border-bottom: 1px solid #ddd; padding: 15px 0; }
+    .assignment:last-child { border: none; }
+    .assignment h2 { margin: 0; }
+    .assignment p { margin: 5px 0; }
+    a { color: #1a73e8; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .grade-all { margin-bottom: 20px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Assignments for Course {{ assignments[0].course_id if assignments else "" }}</h1>
+    <div class="grade-all">
+      <a href="{{ url_for('grade_all') }}?course_id={{ assignments[0].course_id if assignments|length > 0 else '' }}">Grade All Students Automatically</a>
+    </div>
+    {% if assignments %}
+      {% for a in assignments %}
+        <div class="assignment">
+          <h2>{{ a.title }}</h2>
+          <p><strong>Auto Grade:</strong> {{ a.grade|round(2) }} / 100</p>
+          <p><strong>Feedback:</strong> {{ a.feedback }}</p>
+        </div>
+      {% endfor %}
+    {% else %}
+      <p>No assignments found for this course.</p>
+    {% endif %}
+    <a href="{{ url_for('list_courses') }}">Back to Courses</a>
+  </div>
+</body>
+</html>
